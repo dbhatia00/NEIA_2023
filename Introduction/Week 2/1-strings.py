@@ -16,5 +16,6 @@ user2 = 'MA 123 PASS2'
 user3 = 'MA 567 PASS3'
 
 # Problem 1 - retrieve and print user1's ID
-print()
+print(user1[3:6])
 # Problem 2 - retrieve and print user2's passcode
+print(user2[7:])
