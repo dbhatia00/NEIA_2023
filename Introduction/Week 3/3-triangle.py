@@ -34,9 +34,9 @@ areas.append(points[0][0] * points[0][1] * 0.5)
 areas.append(points[1][0] * points[1][1] * 0.5)
 areas.append(points[2][0] * points[2][1] * 0.5)
 
-if (areas[0] > areas[1] and areas[0] > areas[2]):
+if (areas[0] >= areas[1] and areas[0] >= areas[2]):
     print(areas[0])
-elif(areas[1] > areas[0] and areas[1] > areas[2]):
+elif(areas[1] >= areas[0] and areas[1] >= areas[2]):
     print(areas[1])
 else:
     print(areas[2])
