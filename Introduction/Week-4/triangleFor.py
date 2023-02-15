@@ -3,40 +3,32 @@
 
 import math
 
+def getUserInput(inputString, points):
+    sub_points_list = []
+    x = float(input(inputString))
+    y = float(input(inputString))
+    sub_points_list.append(x)
+    sub_points_list.append(y)
+    points.append(sub_points_list)
+    return points
+
+def calcArea(val1, val2):
+    return val1 * val2 * 0.5
+
 points = []
 sub_points_list = []
 
-x = float(input("Enter p1's x: "))
-y = float(input("Enter p1's y: "))
-sub_points_list.append(x)
-sub_points_list.append(y)
-points.append(sub_points_list)
-sub_points_list = []
+num_triangles = int(input('Enter num triangles: '))
 
-x = float(input("Enter p2's x: "))
-y = float(input("Enter p2's y: "))
-sub_points_list.append(x)
-sub_points_list.append(y)
-points.append(sub_points_list)
-sub_points_list = []
+for i in range(0, num_triangles):
+    points = getUserInput('Enter p ', points)
 
-x = float(input("Enter p3's x: "))
-y = float(input("Enter p3's y: "))
-sub_points_list.append(x)
-sub_points_list.append(y)
-points.append(sub_points_list)
-sub_points_list = []
 
 print(points)
 
 areas = []
-areas.append(points[0][0] * points[0][1] * 0.5)
-areas.append(points[1][0] * points[1][1] * 0.5)
-areas.append(points[2][0] * points[2][1] * 0.5)
+for i in range(0, num_triangles):
+    areas.append(calcArea(points[i][0], points[i][1]))
 
-if (areas[0] >= areas[1] and areas[0] >= areas[2]):
-    print(areas[0])
-elif(areas[1] >= areas[0] and areas[1] >= areas[2]):
-    print(areas[1])
-else:
-    print(areas[2])
+
+print(max(areas))
