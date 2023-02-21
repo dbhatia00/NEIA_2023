@@ -5,8 +5,8 @@ import math
 
 def getUserInput(inputString, points):
     sub_points_list = []
-    x = float(input(inputString))
-    y = float(input(inputString))
+    x = float(input(inputString + ' x: '))
+    y = float(input(inputString + ' y: '))
     sub_points_list.append(x)
     sub_points_list.append(y)
     points.append(sub_points_list)
@@ -15,20 +15,20 @@ def getUserInput(inputString, points):
 def calcArea(val1, val2):
     return val1 * val2 * 0.5
 
-points = []
-sub_points_list = []
+def handleBadInput(badInput):
+    while (badInput != 'y') and (badInput != 'n'):
+        badInput = input('Bad input, enter y or n - ')
+    return badInput 
 
-num_triangles = int(input('Enter num triangles: '))
+def main():
+    points = []
+    num_triangles = int(input('Enter num triangles: '))
 
-for i in range(0, num_triangles):
-    points = getUserInput('Enter p ', points)
+    for i in range(0, num_triangles):
+        points = getUserInput('Enter p' + str(i), points)
 
+    areas = []
+    for i in range(0, num_triangles):
+        areas.append(calcArea(points[i][0], points[i][1]))
 
-print(points)
-
-areas = []
-for i in range(0, num_triangles):
-    areas.append(calcArea(points[i][0], points[i][1]))
-
-
-print(max(areas))
+    print("Triangle " + str(areas.index(max(areas))) + " is the largest")
