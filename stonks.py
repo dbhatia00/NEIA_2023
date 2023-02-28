@@ -47,10 +47,24 @@ def avg_price(vals):
     takes list of values and returns the avg
     """
 
+    avg = 0
+    for v in vals:
+        avg+=v
+    return avg/len(vals)
+
 def min_day(vals):
     """
     returns the index of the smallest val
     """
+
+    small = vals[0]
+    smallIndex = 0
+    for i in range(len(vals)):
+        if small> vals[i]:
+            small = vals[i]
+            smallIndex = i
+
+    return smallIndex
 
 def max_change_day(prices):
     """
@@ -58,17 +72,43 @@ def max_change_day(prices):
     change in price
     """
 
+    maxDelta = (prices[1] - prices[0])
+    maxIndex = 0
+    for i in range(1,len(prices)):
+        if abs(prices[i]- prices[i-1]) > maxDelta:
+            maxDelta = abs(prices[i]- prices[i-1])
+            maxIndex = i
+    return maxIndex
+
 def any_above(prices,threshold):
     """
     Determines of there are any prices 
     above the threshold
     """
 
+    for v in prices:
+        if v>threshold:
+            return True
+    return False
+
 def find_tts(vals):
     """
     Calculates the ideal time to sell by 
     returning the buy day, the sell day, and the profit
     """
+
+    profit = vals[1] - vals[0]
+    buyDay = 0
+    sellDay = 1
+
+    for i in range(len(vals)):
+        for j in range(i, len(vals)):
+            tempVal = vals[j] - vals[i]
+            if profit < tempVal:
+                buyDay = i
+                sellDay = j
+                profit = vals[j] - vals[i]
+    return [buyDay, sellDay, profit]
 
 def tts():
     """ the main user-interaction loop
@@ -83,49 +123,37 @@ def tts():
 
         if choice == 0:
             prices = get_new_prices()
-
         elif choice == 8:
             break
-
         elif choice < 8 and len(prices) == 0:
             print('You must enter some prices first.')
-
         elif choice == 1:
             print_prices(prices)
-
         elif choice == 2:
             latest = latest_price(prices)
             print('The latest price is', latest)
-
-        '''
         elif choice == 3:
             print('The average price is',avg_price(prices))
-
         elif choice == 4:
             m = min_day(prices)
             print('The min price is', prices[m], 'on day', m)
-
         elif choice == 5:
             d = max_change_day(prices)
             print('The max single-day change occurs on day', d)
             print('when the price goes from', prices[d-1], 'to', prices[d])
-
         elif choice == 6:
             threshold = int(input('Enter the threshold: '))
             if any_above(prices, threshold):
                 print('There is at least one price above', threshold)
             else:
                 print('There are no prices above', threshold)
-
         elif choice == 7:
             vals = find_tts(prices)
             print('Buy on day', vals[0], 'at price', prices[vals[0]])
             print('Sell on day', vals[1], 'at price', prices[vals[1]])
             print('Total Profit:', vals[2])
-        
         else:
             print('Invalid choice. Please try again.')
-        '''
 
     print('Program exited.')
 
