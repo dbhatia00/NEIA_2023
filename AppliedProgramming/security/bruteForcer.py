@@ -3,7 +3,7 @@ import hashlib
 from itertools import chain, product
 import string
 
-charset = list("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+charset = list("abcdefghijklmnopqrstuvwxyz1234567890")
 
 def bruteforce(maxlength):
     # Returns a list of all possible permutations of the charset, limited by the maxlength param
@@ -13,22 +13,27 @@ def bruteforce(maxlength):
         for i in range(1, maxlength + 1)))
 
 def sha1Hash(inputStr):
+    # Computes the sha1 hash of a given input string
     return hashlib.sha1(inputStr.encode('ascii')).hexdigest()
 
-def crack(hash):
-    for attempt in bruteforce(5):
-        # match it against your password
-        if hash == sha1Hash(attempt):
-            return attempt
+def crack(shadowFileName):
+    # get massive list of permutations
+    for attempt in bruteforce(4):
+
+        shadowFile = open(shadowFileName, 'r')
+
+        # see if current permutation matches any of our hashes
+        for hash in shadowFile:
+            if hash.strip() == sha1Hash(attempt):
+                print('Hash ' + hash + ' is ' + attempt)
     
-    return "ERR - Hash not found, password too long"
 
 def main():
-    hashToCrack = "9d601766d652c523a194941d89e419686e987fb6"
-    if len(hashToCrack) == 0:
-        print("Error, no hash provided")
+    shadowFile = 'SHADOW.txt'
+    if len(shadowFile) == 0:
+        print("Error, no file provided")
     else:
-        print("The password is - " + crack(hashToCrack))
+        crack(shadowFile)
 
 if __name__ == "__main__":
     main()
