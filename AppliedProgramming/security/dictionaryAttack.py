@@ -28,7 +28,7 @@ def crack(passFileName, shadowFileName):
 def main():
     passFile = 'passwordlist.txt'
     shadowFile = 'SHADOW.txt'
-    if len(passFile) == 0 or len(shadowFile == 0) :
+    if len(passFile) == 0 or len(shadowFile) == 0 :
         print('Both shadow file and password list are necessary to run program')
     crack(passFile, shadowFile)
 
